@@ -5,8 +5,7 @@ public class ProductModel {
     private float price;
     private String productName;
     private int quantity;
-    private int  maxQuantity;
-    private String brand;
+    private int maxQuantity;
 
     public int getId() {
         return id;
@@ -48,14 +47,6 @@ public class ProductModel {
         this.maxQuantity = maxQuantity;
     }
 
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
     private CategoryModel category;
 
     public CategoryModel getCategory() {
@@ -64,5 +55,15 @@ public class ProductModel {
 
     public void setCategory(CategoryModel category) {
         this.category = category;
+    }
+
+    private BrandModel brand;
+
+    public BrandModel getBrand() {
+        return brand;
+    }
+
+    public void setBrand(BrandModel brand) {
+        this.brand = brand;
     }
 }

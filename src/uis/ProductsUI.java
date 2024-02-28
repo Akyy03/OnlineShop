@@ -1,5 +1,6 @@
 package uis;
 
+import services.CategoryService;
 import services.ProductService;
 
 import java.util.InputMismatchException;
@@ -7,8 +8,8 @@ import java.util.Scanner;
 
 public class ProductsUI {
 
-    // Other needed objects
     ProductService productService = new ProductService();
+    CategoryService categoryService = new CategoryService();
 
     public void productsUI() {
         Menu menu = new Menu();
@@ -19,13 +20,11 @@ public class ProductsUI {
             System.out.println("Products Menu\n");
 
             System.out.println("1. Browse all products"); // display all products list
-            System.out.println("2. Browse all categories");
-            System.out.println("3. Find a product by ID");
-            System.out.println("4. Find a product by brand name");
-            System.out.println("5. Filters");
+            System.out.println("2. Browse all categories"); // display all categories lists
+            System.out.println("3. Filters"); // find by id, name, brand, price etc
             System.out.println("-----------------------------");
-            System.out.println("6. Products management");
-            System.out.println("7. Categories management");
+            System.out.println("4. Products management"); // products CRUD operations
+            System.out.println("5. Categories management"); // categories CRUD operations
             System.out.println("0. Back to main menu");
 
             try {
@@ -35,22 +34,18 @@ public class ProductsUI {
                 if (productsChoice == 1) {
                     productService.showProducts();
                 } else if (productsChoice == 2) {
-
+                    categoryService.showCategories();
                 } else if (productsChoice == 3) {
-                    productService.findProductByID();
+                    filters();
                 } else if (productsChoice == 4) {
-
-                } else if (productsChoice == 5) {
-
-                } else if (productsChoice == 6) {
                     productsManagement();
-                } else if (productsChoice == 7) {
+                } else if (productsChoice == 5) {
                     categoriesManagement();
                 } else if (productsChoice == 0) {
                     menu.mainMenu();
                 }
 
-                if (productsChoice < 0 || productsChoice > 7) {
+                if (productsChoice < 0 || productsChoice > 5) {
                     System.out.println("Please use a valid option.");
                 }
             } catch (InputMismatchException e) {
@@ -80,9 +75,9 @@ public class ProductsUI {
                 if (productsManagementChoice == 1) {
                     productService.addProduct();
                 } else if (productsManagementChoice == 2) {
-
+                    productService.updateProduct();
                 } else if (productsManagementChoice == 3) {
-
+                    productService.removeProduct();
                 } else if (productsManagementChoice == 0) {
                     productsUI();
                 }
@@ -131,6 +126,45 @@ public class ProductsUI {
                 System.out.println("Please use a valid option.");
             } finally {
                 categoriesManagement();
+            }
+        }
+    }
+
+    public void filters() {
+        Scanner scanner = new Scanner(System.in);
+
+        int filtersChoice = -1;
+        while (filtersChoice != 0) {
+            System.out.println("Filters\n");
+
+            System.out.println("1. Find product by ID");
+            System.out.println("2. Find product by product name");
+            System.out.println("3. Find product by brand name");
+            System.out.println("4. Price filters");
+            System.out.println("0. Back");
+            try {
+                filtersChoice = scanner.nextInt();
+                scanner.nextLine();
+
+                if (filtersChoice == 1) {
+
+                } else if (filtersChoice == 2) {
+
+                } else if (filtersChoice == 3) {
+
+                } else if (filtersChoice == 4) {
+
+                } else if (filtersChoice == 0) {
+                    productsUI();
+                }
+
+                if (filtersChoice < 0 || filtersChoice > 4) {
+                    System.out.println("Please use a valid option.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Please use a valid option.");
+            } finally {
+                filters();
             }
         }
     }

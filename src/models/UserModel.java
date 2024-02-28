@@ -6,6 +6,8 @@ public class UserModel {
         private String name;
         private float balance;
 
+        // lista de cumparaturi
+
     public int getId() {
         return id;
     }

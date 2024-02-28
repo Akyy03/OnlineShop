@@ -100,7 +100,7 @@ public class ProductsUI {
         while (categoriesChoice != 0) {
             System.out.println("Categories Manager\n");
 
-            System.out.println("1. Add category");
+            System.out.println("1. Manually add a category");
             System.out.println("2. Update category");
             System.out.println("3. Remove category");
             System.out.println("0. Back");
@@ -110,11 +110,11 @@ public class ProductsUI {
                 scanner.nextLine();
 
                 if (categoriesChoice == 1) {
-
+                    categoryService.addCategory();
                 } else if (categoriesChoice == 2) {
-
+                    categoryService.updateCategory();
                 } else if (categoriesChoice == 3) {
-
+                    categoryService.removeCategory();
                 } else if (categoriesChoice == 0) {
                     productsUI();
                 }

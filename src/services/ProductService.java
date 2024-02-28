@@ -81,7 +81,7 @@ public class ProductService {
 
             productsList.add(productModel);
 
-            System.out.println("Product added successfully!");
+            System.out.println("Product added successfully!\n");
         }
     }
 
@@ -143,7 +143,7 @@ public class ProductService {
             product.setCategory(category);
         }
 
-        System.out.println("Product data updated successfully.");
+        System.out.println("Product data updated successfully!\n");
     }
 
     public void removeProduct() {
@@ -163,7 +163,7 @@ public class ProductService {
         if (removedProduct == null) {
             System.out.println("Product with ID " + productId + " not found.");
         } else {
-            System.out.println("Product removed successfully!");
+            System.out.println("Product removed successfully!\n");
         }
     }
 }

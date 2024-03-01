@@ -166,4 +166,53 @@ public class ProductService {
             System.out.println("Product removed successfully!\n");
         }
     }
+
+    public void findProductById() {
+        System.out.println("Enter the ID of the product that you are looking for: ");
+        int productId = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean found = false;
+
+        for (ProductModel product : productsList) {
+            if (product.getId() == productId) {
+
+                System.out.println("Product ID: " + product.getId() + " | Product Name: " + product.getProductName());
+                System.out.println("Price: " + product.getPrice() + " | Available Quantity: " + product.getQuantity());
+                System.out.println("Max Quantity: " + product.getMaxQuantity());
+
+                BrandModel brand = product.getBrand();
+                if (!brand.getBrandName().isEmpty()) {
+                    System.out.println("Brand: " + brand.getBrandName());
+                } else {
+                    System.out.println("No brand specified");
+                }
+
+                CategoryModel category = product.getCategory();
+                if (!category.getCategoryName().isEmpty()) {
+                    System.out.println("Category: " + category.getCategoryName() + "\n");
+                } else {
+                    System.out.println("No category specified\n");
+                }
+
+                found = true;
+                break;
+
+            }
+        }
+        if (!found) {
+            System.out.println("Product with ID " + productId + " not found.");
+        }
+
+    }
+
+
+    public void findProductByName() {
+
+    }
+
+    public void findProductByBrandName() {
+
+    }
+
 }

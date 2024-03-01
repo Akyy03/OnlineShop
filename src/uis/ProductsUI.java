@@ -147,13 +147,13 @@ public class ProductsUI {
                 scanner.nextLine();
 
                 if (filtersChoice == 1) {
-
+                    productService.findProductById();
                 } else if (filtersChoice == 2) {
-
+                    productService.findProductByName();
                 } else if (filtersChoice == 3) {
-
+                    productService.findProductByBrandName();
                 } else if (filtersChoice == 4) {
-
+                    priceFilters();
                 } else if (filtersChoice == 0) {
                     productsUI();
                 }
@@ -165,6 +165,43 @@ public class ProductsUI {
                 System.out.println("Please use a valid option.");
             } finally {
                 filters();
+            }
+        }
+    }
+
+    public void priceFilters(){
+        Scanner scanner = new Scanner(System.in);
+
+        int priceFiltersChoice = -1;
+        while(priceFiltersChoice != 0){
+            System.out.println("Sort products by price: \n");
+
+            System.out.println("1. Lower than");
+            System.out.println("2. Higher than");
+            System.out.println("3. Between");
+            System.out.println("0. Back");
+
+            try{
+                priceFiltersChoice = scanner.nextInt();
+                scanner.nextLine();
+
+                if(priceFiltersChoice == 1){
+
+                } else if (priceFiltersChoice == 2){
+
+                } else if (priceFiltersChoice == 3){
+
+                } else if (priceFiltersChoice == 0){
+                    filters();
+                }
+
+                if(priceFiltersChoice < 0 || priceFiltersChoice > 3){
+                    System.out.println("Please use a valid option.");
+                }
+            }catch(InputMismatchException e){
+                System.out.println("Please use a valid option.");
+            }finally{
+                priceFilters();
             }
         }
     }

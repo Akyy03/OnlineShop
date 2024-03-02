@@ -60,9 +60,9 @@ public class ProductService {
             System.out.println("Enter product max quantity: ");
             int productMaxQuantity = scanner.nextInt();
             scanner.nextLine();
-            System.out.println("Enter product's brand: ");
+            System.out.println("Enter product's brand (or leave blank if not specified): ");
             String brandName = scanner.nextLine();
-            System.out.println("Enter product's category: ");
+            System.out.println("Enter product's category (or leave blank if not specified): ");
             String categoryName = scanner.nextLine();
 
             productModel.setId(idCounter++);
@@ -208,11 +208,202 @@ public class ProductService {
 
 
     public void findProductByName() {
+        System.out.println("Enter the name of the product that you are looking for: ");
+        String productName = scanner.nextLine();
 
+        List<ProductModel> matchingProducts = new ArrayList<>();
+
+        for (ProductModel product : productsList) {
+            if (product.getProductName().toLowerCase().contains(productName.toLowerCase())) {
+                matchingProducts.add(product);
+            }
+        }
+
+        if (!matchingProducts.isEmpty()) {
+            System.out.println("Matching products:");
+            for (ProductModel product : matchingProducts) {
+                System.out.println("Product ID: " + product.getId() + " | Product Name: " + product.getProductName());
+                System.out.println("Price: " + product.getPrice() + " | Available Quantity: " + product.getQuantity());
+                System.out.println("Max Quantity: " + product.getMaxQuantity());
+
+                BrandModel brand = product.getBrand();
+                if (brand != null && !brand.getBrandName().isEmpty()) {
+                    System.out.println("Brand: " + brand.getBrandName());
+                } else {
+                    System.out.println("No brand specified");
+                }
+
+                CategoryModel category = product.getCategory();
+                if (category != null && !category.getCategoryName().isEmpty()) {
+                    System.out.println("Category: " + category.getCategoryName() + "\n");
+                } else {
+                    System.out.println("No category specified\n");
+                }
+            }
+        } else {
+            System.out.println("No results found for product name containing: " + productName);
+        }
     }
+
 
     public void findProductByBrandName() {
+        System.out.println("Enter the name of the brand that you are looking for: ");
+        String brandName = scanner.nextLine();
 
+        List<ProductModel> matchingBrands = new ArrayList<>();
+
+        for (ProductModel product : productsList) {
+            BrandModel brand = product.getBrand();
+            if (brand.getBrandName().toLowerCase().contains(brandName.toLowerCase())) {
+                matchingBrands.add(product);
+            }
+        }
+
+        if (!matchingBrands.isEmpty()) {
+            System.out.println("Matching products:");
+            for (ProductModel product : matchingBrands) {
+                System.out.println("Product ID: " + product.getId() + " | Product Name: " + product.getProductName());
+                System.out.println("Price: " + product.getPrice() + " | Available Quantity: " + product.getQuantity());
+                System.out.println("Max Quantity: " + product.getMaxQuantity());
+
+                BrandModel brand = product.getBrand();
+                if (brand != null && !brand.getBrandName().isEmpty()) {
+                    System.out.println("Brand: " + brand.getBrandName());
+                } else {
+                    System.out.println("No brand specified");
+                }
+
+                CategoryModel category = product.getCategory();
+                if (category != null && !category.getCategoryName().isEmpty()) {
+                    System.out.println("Category: " + category.getCategoryName() + "\n");
+                } else {
+                    System.out.println("No category specified\n");
+                }
+            }
+        } else {
+            System.out.println("No results found for brand name containing: " + brandName);
+        }
     }
+
+    public void cheaperThan() {
+        System.out.println("Enter the maximum price for products you want to see: ");
+        float maxPrice = scanner.nextFloat();
+        scanner.nextLine();
+
+        List<ProductModel> productsCheaperThan = new ArrayList<>();
+
+        for (ProductModel product : productsList) {
+            if (product.getPrice() <= maxPrice) {
+                productsCheaperThan.add(product);
+            }
+        }
+
+        if (productsCheaperThan.isEmpty()) {
+            System.out.println("No products on stock within the price range.\n");
+        } else {
+            System.out.println("All our products within your price range: ");
+            for (ProductModel product : productsCheaperThan) {
+                System.out.println("Product ID: " + product.getId() + " | Product Name: " + product.getProductName());
+                System.out.println("Price: " + product.getPrice() + " | Available Quantity: " + product.getQuantity());
+                System.out.println("Max Quantity: " + product.getMaxQuantity());
+
+                BrandModel brand = product.getBrand();
+                if (brand != null && !brand.getBrandName().isEmpty()) {
+                    System.out.println("Brand: " + brand.getBrandName());
+                } else {
+                    System.out.println("No brand specified");
+                }
+
+                CategoryModel category = product.getCategory();
+                if (category != null && !category.getCategoryName().isEmpty()) {
+                    System.out.println("Category: " + category.getCategoryName() + "\n");
+                } else {
+                    System.out.println("No category specified\n");
+                }
+            }
+        }
+    }
+
+    public void moreExpensiveThan() {
+        System.out.println("Enter the minimum price for products you want to see: ");
+        float minPrice = scanner.nextFloat();
+        scanner.nextLine();
+
+        List<ProductModel> productsMoreExpensiveThan = new ArrayList<>();
+
+        for (ProductModel product : productsList) {
+            if (product.getPrice() > minPrice) {
+                productsMoreExpensiveThan.add(product);
+            }
+        }
+
+        if (productsMoreExpensiveThan.isEmpty()) {
+            System.out.println("No products on stock within the price range.\n");
+        } else {
+            System.out.println("All our products within your price range: ");
+            for (ProductModel product : productsMoreExpensiveThan) {
+                System.out.println("Product ID: " + product.getId() + " | Product Name: " + product.getProductName());
+                System.out.println("Price: " + product.getPrice() + " | Available Quantity: " + product.getQuantity());
+                System.out.println("Max Quantity: " + product.getMaxQuantity());
+
+                BrandModel brand = product.getBrand();
+                if (brand != null && !brand.getBrandName().isEmpty()) {
+                    System.out.println("Brand: " + brand.getBrandName());
+                } else {
+                    System.out.println("No brand specified");
+                }
+
+                CategoryModel category = product.getCategory();
+                if (category != null && !category.getCategoryName().isEmpty()) {
+                    System.out.println("Category: " + category.getCategoryName() + "\n");
+                } else {
+                    System.out.println("No category specified\n");
+                }
+            }
+        }
+    }
+
+    public void productsInPriceRange() {
+        System.out.println("Enter the minimum price for products you want to see: ");
+        float minPrice = scanner.nextFloat();
+
+        System.out.println("Enter the maximum price for products you want to see: ");
+        float maxPrice = scanner.nextFloat();
+        scanner.nextLine();
+
+        List<ProductModel> filteredProducts = new ArrayList<>();
+
+        for (ProductModel product : productsList) {
+            if (product.getPrice() >= minPrice && product.getPrice() <= maxPrice) {
+                filteredProducts.add(product);
+            }
+        }
+
+        if (filteredProducts.isEmpty()) {
+            System.out.println("No products found within the specified price range.\n");
+        } else {
+            System.out.println("All our products within your specified price range: ");
+            for (ProductModel product : filteredProducts) {
+                System.out.println("Product ID: " + product.getId() + " | Product Name: " + product.getProductName());
+                System.out.println("Price: " + product.getPrice() + " | Available Quantity: " + product.getQuantity());
+                System.out.println("Max Quantity: " + product.getMaxQuantity());
+
+                BrandModel brand = product.getBrand();
+                if (brand != null && !brand.getBrandName().isEmpty()) {
+                    System.out.println("Brand: " + brand.getBrandName());
+                } else {
+                    System.out.println("No brand specified");
+                }
+
+                CategoryModel category = product.getCategory();
+                if (category != null && !category.getCategoryName().isEmpty()) {
+                    System.out.println("Category: " + category.getCategoryName() + "\n");
+                } else {
+                    System.out.println("No category specified\n");
+                }
+            }
+        }
+    }
+
 
 }

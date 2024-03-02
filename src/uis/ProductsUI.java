@@ -169,38 +169,38 @@ public class ProductsUI {
         }
     }
 
-    public void priceFilters(){
+    public void priceFilters() {
         Scanner scanner = new Scanner(System.in);
 
         int priceFiltersChoice = -1;
-        while(priceFiltersChoice != 0){
-            System.out.println("Sort products by price: \n");
+        while (priceFiltersChoice != 0) {
+            System.out.println("Find products by price: \n");
 
-            System.out.println("1. Lower than");
-            System.out.println("2. Higher than");
-            System.out.println("3. Between");
+            System.out.println("1. Cheaper than");
+            System.out.println("2. More expensive than");
+            System.out.println("3. Custom price range");
             System.out.println("0. Back");
 
-            try{
+            try {
                 priceFiltersChoice = scanner.nextInt();
                 scanner.nextLine();
 
-                if(priceFiltersChoice == 1){
-
-                } else if (priceFiltersChoice == 2){
-
-                } else if (priceFiltersChoice == 3){
-
-                } else if (priceFiltersChoice == 0){
+                if (priceFiltersChoice == 1) {
+                    productService.cheaperThan();
+                } else if (priceFiltersChoice == 2) {
+                    productService.moreExpensiveThan();
+                } else if (priceFiltersChoice == 3) {
+                    productService.productsInPriceRange();
+                } else if (priceFiltersChoice == 0) {
                     filters();
                 }
 
-                if(priceFiltersChoice < 0 || priceFiltersChoice > 3){
+                if (priceFiltersChoice < 0 || priceFiltersChoice > 3) {
                     System.out.println("Please use a valid option.");
                 }
-            }catch(InputMismatchException e){
+            } catch (InputMismatchException e) {
                 System.out.println("Please use a valid option.");
-            }finally{
+            } finally {
                 priceFilters();
             }
         }

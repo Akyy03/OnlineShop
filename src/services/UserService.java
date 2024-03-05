@@ -179,7 +179,15 @@ public class UserService {
         }
     }
 
-    public void cart() {
-
+    public UserModel findUserById(int id) {
+        for (UserModel user : usersList) {
+            if (user.getId() == id) {
+                return user;
+            }
+        }
+        return null;
     }
+
 }
+
+

@@ -1,5 +1,6 @@
 package uis;
 
+import models.UserModel;
 import services.UserService;
 
 import java.util.InputMismatchException;
@@ -11,6 +12,7 @@ public class Menu {
     ProductsUI productsUI = new ProductsUI();
     UserUI userUI = new UserUI();
     UserService userService = new UserService();
+    UserModel user = new UserModel();
 
     public void mainMenu() {
         Scanner scanner = new Scanner(System.in);
@@ -33,7 +35,7 @@ public class Menu {
                 } else if (choice == 2) {
                     userUI.userUI();
                 } else if (choice == 3) {
-                    userService.cart();
+                    userUI.cart();
                 } else if (choice == 0) {
                     System.exit(0);
                 } else {

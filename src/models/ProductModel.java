@@ -6,6 +6,15 @@ public class ProductModel {
     private String productName;
     private int quantity;
     private int maxQuantity;
+    private int cartQuantity;
+
+    public int getCartQuantity() {
+        return cartQuantity;
+    }
+
+    public void setCartQuantity(int cartQuantity) {
+        this.cartQuantity = cartQuantity;
+    }
 
     public int getId() {
         return id;

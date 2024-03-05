@@ -7,6 +7,13 @@ public class AddressModel {
     private String street;
     private int zipcode;
 
+    public AddressModel(String country, String city, String street, int zipCode) {
+    }
+
+    public AddressModel() {
+
+    }
+
     public int getId() {
         return id;
     }

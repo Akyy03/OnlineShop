@@ -46,12 +46,10 @@ public class ProductsUI {
                 }
 
                 if (productsChoice < 0 || productsChoice > 5) {
-                    System.out.println("Please use a valid option.");
+                    System.out.println("Please use a valid option (0 - 5).");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Please use a valid option");
-            } finally {
-                productsUI();
             }
         }
     }
@@ -83,12 +81,10 @@ public class ProductsUI {
                 }
 
                 if (productsManagementChoice < 0 || productsManagementChoice > 3) {
-                    System.out.println("Please use a valid option.");
+                    System.out.println("Please use a valid option (0 - 3).");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Please use a valid option.");
-            } finally {
-                productsManagement();
+                System.out.println("Please use a valid option. Input should be a number.");
             }
         }
     }
@@ -100,7 +96,7 @@ public class ProductsUI {
         while (categoriesChoice != 0) {
             System.out.println("Categories Manager\n");
 
-            System.out.println("1. Manually add a category");
+            System.out.println("1. Add a category");
             System.out.println("2. Update category");
             System.out.println("3. Remove category");
             System.out.println("0. Back");
@@ -120,12 +116,10 @@ public class ProductsUI {
                 }
 
                 if (categoriesChoice < 0 || categoriesChoice > 3) {
-                    System.out.println("Please use a valid option.");
+                    System.out.println("Please use a valid option (0 - 3).");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Please use a valid option.");
-            } finally {
-                categoriesManagement();
+                System.out.println("Please use a valid option. Input should be a number.");
             }
         }
     }
@@ -159,12 +153,10 @@ public class ProductsUI {
                 }
 
                 if (filtersChoice < 0 || filtersChoice > 4) {
-                    System.out.println("Please use a valid option.");
+                    System.out.println("Please use a valid option (0 - 4).");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Please use a valid option.");
-            } finally {
-                filters();
+                System.out.println("Error: Input should be a number.");
             }
         }
     }
@@ -196,12 +188,10 @@ public class ProductsUI {
                 }
 
                 if (priceFiltersChoice < 0 || priceFiltersChoice > 3) {
-                    System.out.println("Please use a valid option.");
+                    System.out.println("Please use a valid option (0 - 3).");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Please use a valid option.");
-            } finally {
-                priceFilters();
+                System.out.println("Error: Input should be a number.");
             }
         }
     }

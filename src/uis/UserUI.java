@@ -44,12 +44,10 @@ public class UserUI {
                 }
 
                 if (userChoice < 0 || userChoice > 4) {
-                    System.out.println("Please use a valid option.");
+                    System.out.println("Please use a valid option (0 - 4).");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Please use a valid option");
-            } finally {
-                userUI();
+                System.out.println("Please use a valid option. Input should be a number.");
             }
         }
     }
@@ -93,10 +91,10 @@ public class UserUI {
                 }
 
                 if (cartChoice < 0 || cartChoice > 4) {
-                    System.out.println("Please use a valid option.");
+                    System.out.println("Please use a valid option (0 - 4).");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Please use a valid option");
+                System.out.println("Please use a valid option. Input should be a number.");
             }
         }
     }

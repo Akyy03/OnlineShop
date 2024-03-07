@@ -42,7 +42,7 @@ public class ProductService {
     }
 
     public void addProduct() {
-
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             ProductModel productModel = new ProductModel();
             System.out.println("Enter a product display name (or type 'quit' to cancel): ");
@@ -56,9 +56,19 @@ public class ProductService {
             System.out.println("Enter product quantity: ");
             int productQuantity = scanner.nextInt();
             scanner.nextLine();
-            System.out.println("Enter product max quantity: ");
-            int productMaxQuantity = scanner.nextInt();
-            scanner.nextLine();
+
+            int productMaxQuantity;
+            while (true) {
+                System.out.println("Enter product max quantity (must be equal to or greater than quantity): ");
+                productMaxQuantity = scanner.nextInt();
+                scanner.nextLine();
+                if (productMaxQuantity >= productQuantity) {
+                    break;
+                } else {
+                    System.out.println("Max quantity must be equal to or greater than quantity.");
+                }
+            }
+
             System.out.println("Enter product's brand (or leave blank if not specified): ");
             String brandName = scanner.nextLine();
             System.out.println("Enter product's category (or leave blank if not specified): ");
@@ -85,6 +95,7 @@ public class ProductService {
     }
 
     public void updateProduct() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the ID of the product that you wish to update: ");
         int productId = scanner.nextInt();
         scanner.nextLine();
@@ -111,19 +122,42 @@ public class ProductService {
         System.out.println("Enter a new price for the product (or leave blank to keep current): ");
         String newPrice = scanner.nextLine();
         if (!newPrice.isEmpty()) {
-            product.setPrice(Float.parseFloat(newPrice));
+            try {
+                float price = Float.parseFloat(newPrice);
+                product.setPrice(price);
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Invalid input. It should be a number. Keeping current.");
+            }
         }
 
         System.out.println("Enter a new quantity for the product (or leave blank to keep current): ");
         String newQuantity = scanner.nextLine();
         if (!newQuantity.isEmpty()) {
-            product.setQuantity(Integer.parseInt(newQuantity));
+            try {
+                int quantity = Integer.parseInt(newQuantity);
+                if (quantity <= product.getMaxQuantity()) {
+                    product.setQuantity(quantity);
+                } else {
+                    System.out.println("Error: Quantity cannot be greater than max quantity. Keeping current.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Invalid input. It should be a number. Keeping current.");
+            }
         }
 
         System.out.println("Enter a new max quantity for the product (or leave blank to keep current): ");
         String newMaxQuantity = scanner.nextLine();
         if (!newMaxQuantity.isEmpty()) {
-            product.setMaxQuantity(Integer.parseInt(newMaxQuantity));
+            try {
+                int maxQuantity = Integer.parseInt(newMaxQuantity);
+                if (maxQuantity >= product.getQuantity()) {
+                    product.setMaxQuantity(maxQuantity);
+                } else {
+                    System.out.println("Error: Max quantity cannot be less than quantity. Keeping current.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Invalid input. It should be a number. Keeping current.");
+            }
         }
 
         System.out.println("Enter a new brand name for the product (or leave blank to keep current): ");
@@ -146,6 +180,7 @@ public class ProductService {
     }
 
     public void removeProduct() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the ID of the product that you wish to remove: ");
         int productId = scanner.nextInt();
         scanner.nextLine();
@@ -167,6 +202,8 @@ public class ProductService {
     }
 
     public void findProductById() {
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Enter the ID of the product that you are looking for: ");
         int productId = scanner.nextInt();
         scanner.nextLine();
@@ -285,6 +322,8 @@ public class ProductService {
     }
 
     public void cheaperThan() {
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Enter the maximum price for products you want to see: ");
         float maxPrice = scanner.nextFloat();
         scanner.nextLine();
@@ -324,6 +363,8 @@ public class ProductService {
     }
 
     public void moreExpensiveThan() {
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Enter the minimum price for products you want to see: ");
         float minPrice = scanner.nextFloat();
         scanner.nextLine();
@@ -363,8 +404,11 @@ public class ProductService {
     }
 
     public void productsInPriceRange() {
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Enter the minimum price for products you want to see: ");
         float minPrice = scanner.nextFloat();
+        scanner.nextLine();
 
         System.out.println("Enter the maximum price for products you want to see: ");
         float maxPrice = scanner.nextFloat();
@@ -459,6 +503,7 @@ public class ProductService {
     }
 
     public void checkout(UserModel user) {
+        Scanner scanner = new Scanner(System.in);
         Menu menu = new Menu();
         if (user.getShoppingCart().isEmpty()) {
             System.out.println("Your cart is empty.");

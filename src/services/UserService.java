@@ -9,10 +9,10 @@ import java.util.Scanner;
 public class UserService {
 
     private static List<UserModel> usersList = new ArrayList<>();
-    Scanner scanner = new Scanner(System.in);
     private static int idCounter = 1;
 
     public void createUser() {
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             UserModel userModel = new UserModel();
             System.out.println("Enter user's name (or type 'quit' to cancel): ");
@@ -96,6 +96,7 @@ public class UserService {
     }
 
     public void updateUser() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the ID of the account you wish to update: ");
         int userId = scanner.nextInt();
         scanner.nextLine();
@@ -127,7 +128,12 @@ public class UserService {
         System.out.println("Enter a new balance for the user (or leave blank to keep current): ");
         String newBalance = scanner.nextLine();
         if (!newBalance.isEmpty()) {
-            user.setBalance(Float.parseFloat(newBalance));
+            try {
+                float balance = Float.parseFloat(newBalance);
+                user.setBalance(balance);
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Invalid input. It should be a number. Keeping current.");
+            }
         }
 
         AddressModel address = user.getAddress();
@@ -150,15 +156,21 @@ public class UserService {
         }
 
         System.out.println("Enter a new zipcode for the user (or leave blank to keep current): ");
-        String newZipcode = scanner.nextLine();
-        if (!newZipcode.isEmpty()) {
-            address.setZipcode(Integer.parseInt(newZipcode));
+        String newZipCode = scanner.nextLine();
+        if (!newZipCode.isEmpty()) {
+            try {
+                int zipcode = Integer.parseInt(newZipCode);
+                address.setZipcode(zipcode);
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Invalid input. It should be a number. Keeping current.");
+            }
         }
 
         System.out.println("User updated successfully!\n");
     }
 
     public void removeUser() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the ID of the user that you wish to remove: ");
         int userId = scanner.nextInt();
         scanner.nextLine();

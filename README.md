@@ -8,4 +8,5 @@ User-Friendly and easy to use interfaces.
 
 Fully functional procedure to create account, browse products, add to cart and checkout.
 
-# Java Core Used: OOP(Encapsulation, Inheritance, Polymorphism), Lists, Threads, etc.
+# Java Core Used: 
+OOP(Encapsulation, Inheritance, Polymorphism), Lists, Threads, etc.

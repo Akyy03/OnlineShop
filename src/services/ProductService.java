@@ -12,7 +12,6 @@ public class ProductService {
     private static List<UserModel> usersList = new ArrayList<>();
     private static List<ProductModel> productsList = new ArrayList<>();
     private static int idCounter = 1;
-    Scanner scanner = new Scanner(System.in);
 
     public void showProducts() {
         if (productsList.isEmpty()) {
@@ -244,6 +243,7 @@ public class ProductService {
 
 
     public void findProductByName() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the name of the product that you are looking for: ");
         String productName = scanner.nextLine();
 
@@ -283,6 +283,7 @@ public class ProductService {
 
 
     public void findProductByBrandName() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the name of the brand that you are looking for: ");
         String brandName = scanner.nextLine();
 
@@ -449,6 +450,7 @@ public class ProductService {
     }
 
     public void addToCart(UserModel user) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the product ID to add to your cart:");
         int productId = scanner.nextInt();
         scanner.nextLine();
@@ -496,6 +498,7 @@ public class ProductService {
     }
 
     public void removeProductFromCart(UserModel user) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the ID of the product you wish to remove from your cart:");
         int productId = scanner.nextInt();
 

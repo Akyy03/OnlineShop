@@ -30,19 +30,19 @@ public class Menu {
                 choice = scanner.nextInt();
                 scanner.nextLine();
 
-                if (choice == 1) {
-                    productsUI.productsUI();
-                } else if (choice == 2) {
-                    userUI.userUI();
-                } else if (choice == 3) {
-                    userUI.cart();
-                } else if (choice == 0) {
-                    System.exit(0);
-                } else {
-                    System.out.println("Please use a valid option.");
+                switch (choice) {
+                    case 1 -> productsUI.productsUI();
+
+                    case 2 -> userUI.userUI();
+
+                    case 3 -> userUI.cart();
+
+                    case 0 -> System.exit(0);
+
+                    default -> System.out.println("Please use a valid option (0 - 3).");
                 }
             } else {
-                System.out.println("Please use a valid option.");
+                System.out.println("Please use a valid option. Input should be a number.");
                 scanner.next();
             }
         }

@@ -1,8 +1,7 @@
 package models;
 
-public class CategoryModel {
+public class CategoryModel extends Model {
 
-    private int id;
     private String categoryName;
 
     public String getCategoryName() {
@@ -13,11 +12,5 @@ public class CategoryModel {
         this.categoryName = categoryName;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 }

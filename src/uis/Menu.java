@@ -3,18 +3,16 @@ package uis;
 import models.UserModel;
 import services.UserService;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
 
-
     ProductsUI productsUI = new ProductsUI();
     UserUI userUI = new UserUI();
-    UserService userService = new UserService();
-    UserModel user = new UserModel();
 
-    public void mainMenu() {
+    public void mainMenu() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         int choice = -1;
@@ -23,7 +21,7 @@ public class Menu {
             System.out.println("Welcome to your online store!\n");
 
             System.out.println("1. Browse products menu"); // display list and sort options
-            System.out.println("2. Your account"); // user personal informations
+            System.out.println("2. Your account"); // user personal information
             System.out.println("3. Your cart"); // user shopping cart + checkout
             System.out.println("0. Close");
             if (scanner.hasNextInt()) {
@@ -35,7 +33,7 @@ public class Menu {
 
                     case 2 -> userUI.userUI();
 
-                    case 3 -> userUI.cart();
+                    //case 3 -> userUI.cart();
 
                     case 0 -> System.exit(0);
 

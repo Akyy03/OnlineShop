@@ -1,12 +1,13 @@
 package models;
 
-public class ProductModel {
-    private int id;
+public class ProductModel extends Model {
     private float price;
     private String productName;
     private int quantity;
     private int maxQuantity;
     private int cartQuantity;
+    private CategoryModel category;
+    private BrandModel brand;
 
     public int getCartQuantity() {
         return cartQuantity;
@@ -14,14 +15,6 @@ public class ProductModel {
 
     public void setCartQuantity(int cartQuantity) {
         this.cartQuantity = cartQuantity;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public float getPrice() {
@@ -56,8 +49,6 @@ public class ProductModel {
         this.maxQuantity = maxQuantity;
     }
 
-    private CategoryModel category;
-
     public CategoryModel getCategory() {
         return category;
     }
@@ -65,8 +56,6 @@ public class ProductModel {
     public void setCategory(CategoryModel category) {
         this.category = category;
     }
-
-    private BrandModel brand;
 
     public BrandModel getBrand() {
         return brand;

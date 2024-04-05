@@ -3,23 +3,15 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserModel {
-    private int id;
+public class UserModel extends Model {
     private String email;
     private String name;
     private float balance;
     private List<ProductModel> shoppingCart;
+    private AddressModel address;
 
     public UserModel() {
         this.shoppingCart = new ArrayList<>();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -76,9 +68,6 @@ public class UserModel {
         }
     }
 
-
-
-
     public void removeFromCart(int productId) {
         ProductModel productToRemove = null;
         for (ProductModel product : this.shoppingCart) {
@@ -94,8 +83,6 @@ public class UserModel {
             System.out.println("Product with ID " + productId + " not found in your cart.");
         }
     }
-
-    private AddressModel address;
 
     public AddressModel getAddress() {
         return address;

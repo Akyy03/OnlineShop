@@ -1,7 +1,6 @@
 package models;
 
-public class AddressModel {
-    private int id;
+public class AddressModel extends Model {
     private String country;
     private String city;
     private String street;
@@ -12,14 +11,6 @@ public class AddressModel {
 
     public AddressModel() {
 
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getCountry() {

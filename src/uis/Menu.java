@@ -1,10 +1,6 @@
 package uis;
 
-import models.UserModel;
-import services.UserService;
-
 import java.io.IOException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
@@ -33,7 +29,7 @@ public class Menu {
 
                     case 2 -> userUI.userUI();
 
-                    //case 3 -> userUI.cart();
+                    case 3 -> userUI.cart();
 
                     case 0 -> System.exit(0);
 

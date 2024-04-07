@@ -165,84 +165,99 @@ public class ProductsUI {
 
     private void updateProduct() throws IOException {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the ID of the product that you wish to update: ");
-        int productId = scanner.nextInt();
-        scanner.nextLine();
-        ProductModel productModel = productService.getProductModel(productId);
-        int choice = -1;
-        while (choice != 0) {
-            System.out.println("1. Update product name");
-            System.out.println("2. Update product price");
-            System.out.println("3. Update product quantity / max quantity");
-            System.out.println("4. Update product brand");
-            System.out.println("5. Update product category");
-            choice = scanner.nextInt();
-            scanner.nextLine();
-            if (choice == 1) {
-                System.out.println("Enter a new product name (or leave blank to keep current): ");
-                String newProductName = scanner.nextLine();
-                if (!newProductName.isEmpty()) {
-                    productModel.setProductName(newProductName);
-                }
-            } else if (choice == 2) {
-                System.out.println("Enter a new price for the product (or leave blank to keep current): ");
-                String newPrice = scanner.nextLine();
-                if (!newPrice.isEmpty()) {
-                    try {
-                        float price = Float.parseFloat(newPrice);
-                        productModel.setPrice(price);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Error: Invalid input. It should be a number. Keeping current.");
-                    }
-                }
-            } else if (choice == 3) {
-                System.out.println("Enter a new quantity for the product (or leave blank to keep current): ");
-                String newQuantity = scanner.nextLine();
-                if (!newQuantity.isEmpty()) {
-                    try {
-                        int quantity = Integer.parseInt(newQuantity);
-                        if (quantity <= productModel.getMaxQuantity()) {
-                            productModel.setQuantity(quantity);
-                        } else {
-                            System.out.println("Error: Quantity cannot be greater than max quantity. Keeping current.");
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Error: Invalid input. It should be a number. Keeping current.");
-                    }
-                }
 
-                System.out.println("Enter a new max quantity for the product (or leave blank to keep current): ");
-                String newMaxQuantity = scanner.nextLine();
-                if (!newMaxQuantity.isEmpty()) {
-                    try {
-                        int maxQuantity = Integer.parseInt(newMaxQuantity);
-                        if (maxQuantity >= productModel.getQuantity()) {
-                            productModel.setMaxQuantity(maxQuantity);
-                        } else {
-                            System.out.println("Error: Max quantity cannot be less than quantity. Keeping current.");
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Error: Invalid input. It should be a number. Keeping current.");
+        if (productDao.getList().isEmpty()) {
+            System.out.println("No products found.\n");
+        } else {
+
+            System.out.println("Enter the ID of the product that you wish to update: ");
+            int productId = scanner.nextInt();
+            scanner.nextLine();
+            ProductModel productModel = productService.getProductModel(productId);
+            int choice = -1;
+            while (choice != 0) {
+                System.out.println("1. Update product name");
+                System.out.println("2. Update product price");
+                System.out.println("3. Update product quantity / max quantity");
+                System.out.println("4. Update product brand");
+                System.out.println("5. Update product category");
+                System.out.println("0. Back");
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                if (choice == 1) {
+                    System.out.println("Enter a new product name (or leave blank to keep current): ");
+                    String newProductName = scanner.nextLine();
+                    if (!newProductName.isEmpty()) {
+                        productModel.setProductName(newProductName);
+                        productService.updateProduct(productModel);
                     }
+                } else if (choice == 2) {
+                    System.out.println("Enter a new price for the product (or leave blank to keep current): ");
+                    String newPrice = scanner.nextLine();
+                    if (!newPrice.isEmpty()) {
+                        try {
+                            float price = Float.parseFloat(newPrice);
+                            productModel.setPrice(price);
+                            productService.updateProduct(productModel);
+                        } catch (NumberFormatException e) {
+                            System.out.println("Error: Invalid input. It should be a number. Keeping current.");
+                        }
+                    }
+                } else if (choice == 3) {
+                    System.out.println("Enter a new quantity for the product (or leave blank to keep current): ");
+                    String newQuantity = scanner.nextLine();
+                    if (!newQuantity.isEmpty()) {
+                        try {
+                            int quantity = Integer.parseInt(newQuantity);
+                            if (quantity <= productModel.getMaxQuantity()) {
+                                productModel.setQuantity(quantity);
+                                productService.updateProduct(productModel);
+                            } else {
+                                System.out.println("Error: Quantity cannot be greater than max quantity. Keeping current.");
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Error: Invalid input. It should be a number. Keeping current.");
+                        }
+                    }
+
+                    System.out.println("Enter a new max quantity for the product (or leave blank to keep current): ");
+                    String newMaxQuantity = scanner.nextLine();
+                    if (!newMaxQuantity.isEmpty()) {
+                        try {
+                            int maxQuantity = Integer.parseInt(newMaxQuantity);
+                            if (maxQuantity >= productModel.getQuantity()) {
+                                productModel.setMaxQuantity(maxQuantity);
+                                productService.updateProduct(productModel);
+                            } else {
+                                System.out.println("Error: Max quantity cannot be less than quantity. Keeping current.");
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Error: Invalid input. It should be a number. Keeping current.");
+                        }
+                    }
+                } else if (choice == 4) {
+                    System.out.println("Enter a new brand name for the product (or leave blank to keep current): ");
+                    String newBrandName = scanner.nextLine();
+                    if (!newBrandName.isEmpty()) {
+                        BrandModel brand = new BrandModel();
+                        brand.setBrandName(newBrandName);
+                        productModel.setBrand(brand);
+                        productService.updateProduct(productModel);
+                    }
+                } else if (choice == 5) {
+                    System.out.println("Enter a new category name for the product (or leave blank to keep current): ");
+                    String newCategoryName = scanner.nextLine();
+                    if (!newCategoryName.isEmpty()) {
+                        CategoryModel category = new CategoryModel();
+                        category.setCategoryName(newCategoryName);
+                        productModel.setCategory(category);
+                        productService.updateProduct(productModel);
+                    }
+                } else if (choice == 0) {
+                    productsManagement();
                 }
-            } else if (choice == 4) {
-                System.out.println("Enter a new brand name for the product (or leave blank to keep current): ");
-                String newBrandName = scanner.nextLine();
-                if (!newBrandName.isEmpty()) {
-                    BrandModel brand = new BrandModel();
-                    brand.setBrandName(newBrandName);
-                    productModel.setBrand(brand);
-                }
-            } else if (choice == 5) {
-                System.out.println("Enter a new category name for the product (or leave blank to keep current): ");
-                String newCategoryName = scanner.nextLine();
-                if (!newCategoryName.isEmpty()) {
-                    CategoryModel category = new CategoryModel();
-                    category.setCategoryName(newCategoryName);
-                    productModel.setCategory(category);
-                }
+                System.out.println("Product data updated successfully!\n");
             }
-            System.out.println("Product data updated successfully!\n");
         }
     }
 
@@ -250,12 +265,16 @@ public class ProductsUI {
 
     private void removeProduct() throws IOException {
         Scanner scanner = new Scanner(System.in);
-        showProducts();
-        System.out.println("Choose a product to remove: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        productService.removeProduct(id);
-        System.out.println("Product removed successfully!\n");
+        if (productDao.getList().isEmpty()) {
+            System.out.println("No products found.\n");
+        } else {
+            showProducts();
+            System.out.println("Choose a product to remove: ");
+            int id = scanner.nextInt();
+            scanner.nextLine();
+            productService.removeProduct(id);
+            System.out.println("Product removed successfully!\n");
+        }
     }
 
     private void categoriesManagement() throws IOException {
@@ -406,7 +425,7 @@ public class ProductsUI {
         }
     }
 
-    private void priceFilters() throws IOException{
+    private void priceFilters() throws IOException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter the minimum price for products you want to see: ");
@@ -419,7 +438,7 @@ public class ProductsUI {
 
         List<ProductModel> filteredProducts = new ArrayList<>();
 
-        for (ProductModel product : productDao.getList() ) {
+        for (ProductModel product : productDao.getList()) {
             if (product.getPrice() >= minPrice && product.getPrice() <= maxPrice) {
                 filteredProducts.add(product);
             }

@@ -5,6 +5,7 @@ import dao.UserDao;
 import models.AddressModel;
 import models.ProductModel;
 import models.UserModel;
+import services.ProductService;
 import services.UserService;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ public class UserUI {
     UserService userService = new UserService();
     UserDao userDao = new UserDao();
     ProductDao productDao = new ProductDao();
+    ProductService productService = new ProductService();
 
 
     public void userUI() throws IOException {
@@ -117,75 +119,89 @@ public class UserUI {
 
     private void updateUser() throws IOException {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the ID of the account you wish to update: ");
-        int userId = scanner.nextInt();
-        scanner.nextLine();
-        UserModel userModel = userService.getUserModel(userId);
-        int choice = -1;
-        while (choice != 0) {
 
-            System.out.println("1. Update user name");
-            System.out.println("2. Update user email");
-            System.out.println("3. Update user balance");
-            System.out.println("4. Update user address");
-            choice = scanner.nextInt();
+        if (userDao.getList().isEmpty()) {
+            System.out.println("No users found.\n");
+        } else {
+            System.out.println("Enter the ID of the account you wish to update: ");
+            int userId = scanner.nextInt();
             scanner.nextLine();
-            if (choice == 1) {
-                System.out.println("Enter a new user name (or leave blank to keep current): ");
-                String newUserName = scanner.nextLine();
-                if (!newUserName.isEmpty()) {
-                    userModel.setName(newUserName);
-                }
-            } else if (choice == 2) {
-                System.out.println("Enter a new user email address (or leave blank to keep current): ");
-                String newUserEmail = scanner.nextLine();
-                if (!newUserEmail.isEmpty()) {
-                    userModel.setEmail(newUserEmail);
-                }
-            } else if (choice == 3) {
-                System.out.println("Enter a new balance for the user (or leave blank to keep current): ");
-                String newBalance = scanner.nextLine();
-                if (!newBalance.isEmpty()) {
-                    try {
-                        float balance = Float.parseFloat(newBalance);
-                        userModel.setBalance(balance);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Error: Invalid input. It should be a number. Keeping current.");
+            UserModel userModel = userService.getUserModel(userId);
+            int choice = -1;
+            while (choice != 0) {
+
+                System.out.println("1. Update user name");
+                System.out.println("2. Update user email");
+                System.out.println("3. Update user balance");
+                System.out.println("4. Update user address");
+                System.out.println("0. Back");
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                if (choice == 1) {
+                    System.out.println("Enter a new user name (or leave blank to keep current): ");
+                    String newUserName = scanner.nextLine();
+                    if (!newUserName.isEmpty()) {
+                        userModel.setName(newUserName);
+                        userService.updateUser(userModel);
                     }
-                }
-            } else if (choice == 4) {
-                AddressModel address = userModel.getAddress();
-                System.out.println("Enter a new country for the user (or leave blank to keep current): ");
-                String newCountry = scanner.nextLine();
-                if (!newCountry.isEmpty()) {
-                    address.setCountry(newCountry);
-                }
-
-                System.out.println("Enter a new city for the user (or leave blank to keep current): ");
-                String newCity = scanner.nextLine();
-                if (!newCity.isEmpty()) {
-                    address.setCity(newCity);
-                }
-
-                System.out.println("Enter a new street for the user (or leave blank to keep current): ");
-                String newStreet = scanner.nextLine();
-                if (!newStreet.isEmpty()) {
-                    address.setStreet(newStreet);
-                }
-
-                System.out.println("Enter a new zipcode for the user (or leave blank to keep current): ");
-                String newZipCode = scanner.nextLine();
-                if (!newZipCode.isEmpty()) {
-                    try {
-                        int zipcode = Integer.parseInt(newZipCode);
-                        address.setZipcode(zipcode);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Error: Invalid input. It should be a number. Keeping current.");
+                } else if (choice == 2) {
+                    System.out.println("Enter a new user email address (or leave blank to keep current): ");
+                    String newUserEmail = scanner.nextLine();
+                    if (!newUserEmail.isEmpty()) {
+                        userModel.setEmail(newUserEmail);
+                        userService.updateUser(userModel);
                     }
+                } else if (choice == 3) {
+                    System.out.println("Enter a new balance for the user (or leave blank to keep current): ");
+                    String newBalance = scanner.nextLine();
+                    if (!newBalance.isEmpty()) {
+                        try {
+                            float balance = Float.parseFloat(newBalance);
+                            userModel.setBalance(balance);
+                            userService.updateUser(userModel);
+                        } catch (NumberFormatException e) {
+                            System.out.println("Error: Invalid input. It should be a number. Keeping current.");
+                        }
+                    }
+                } else if (choice == 4) {
+                    AddressModel address = userModel.getAddress();
+                    System.out.println("Enter a new country for the user (or leave blank to keep current): ");
+                    String newCountry = scanner.nextLine();
+                    if (!newCountry.isEmpty()) {
+                        address.setCountry(newCountry);
+                        userService.updateUser(userModel);
+                    }
+
+                    System.out.println("Enter a new city for the user (or leave blank to keep current): ");
+                    String newCity = scanner.nextLine();
+                    if (!newCity.isEmpty()) {
+                        address.setCity(newCity);
+                        userService.updateUser(userModel);
+                    }
+
+                    System.out.println("Enter a new street for the user (or leave blank to keep current): ");
+                    String newStreet = scanner.nextLine();
+                    if (!newStreet.isEmpty()) {
+                        address.setStreet(newStreet);
+                        userService.updateUser(userModel);
+                    }
+
+                    System.out.println("Enter a new zipcode for the user (or leave blank to keep current): ");
+                    String newZipCode = scanner.nextLine();
+                    if (!newZipCode.isEmpty()) {
+                        try {
+                            int zipcode = Integer.parseInt(newZipCode);
+                            address.setZipcode(zipcode);
+                            userService.updateUser(userModel);
+                        } catch (NumberFormatException e) {
+                            System.out.println("Error: Invalid input. It should be a number. Keeping current.");
+                        }
+                    }
+                } else if (choice == 0) {
+                    userUI();
                 }
+                System.out.println("User updated successfully!\n");
             }
-
-            System.out.println("User updated successfully!\n");
         }
     }
 
@@ -193,12 +209,16 @@ public class UserUI {
 
     private void removeUser() throws IOException {
         Scanner scanner = new Scanner(System.in);
-        showUsers();
-        System.out.println("Choose an user to remove: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        userService.removeUser(id);
-        System.out.println("User removed successfully!\n");
+        if (userDao.getList().isEmpty()) {
+            System.out.println("No users found.\n");
+        } else {
+            showUsers();
+            System.out.println("Choose an user to remove: ");
+            int id = scanner.nextInt();
+            scanner.nextLine();
+            userService.removeUser(id);
+            System.out.println("User removed successfully!\n");
+        }
     }
 
     // Cart
@@ -466,10 +486,13 @@ public class UserUI {
             int orderedQuantity = product.getCartQuantity();
             int newStock = initialStock - orderedQuantity;
             product.setQuantity(newStock);
+            productService.updateProduct(product);
+
             System.out.println("***Admin info: Product stock updated.***\n");
 
+            user.getShoppingCart().clear();
+            userService.updateUser(user);
+            menu.mainMenu();
         }
-        user.getShoppingCart().clear();
-        menu.mainMenu();
     }
 }
